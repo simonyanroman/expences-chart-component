@@ -15,9 +15,7 @@ realistic projects.
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
   - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -43,93 +41,119 @@ Users should be able to:
 
 - Solution URL:
   [GitHub Repository](https://github.com/simonyanroman/expences-chart-component)
-- Live Site URL: [Expences Chart Component](https://your-live-site-url.com)
+- Live Site URL:
+  [Expences Chart Component](https://simonyanroman.github.io/expences-chart-component/)
 
 ## My process
 
 ### Built with
 
-- Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
-- Mobile-first workflow
 - [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list
-above with your own choices**
+- Flexbox
+- CSS custom properties
+- Semantic HTML5 markup
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working
-through this project. Writing these out and providing code samples of areas
-you want to highlight is a great way to reinforce your own knowledge.
+> As far as i'm mastering **ReactJS** i used what i've learned to complete
+> this chellange. My Goal was to create a reusable component, which
+> automatically transforms to fetched data. This component actually doesn't
+> fetch any data, but it will probably exsit in common app context, so you
+> just need to pass necessary data via props.
 
-To see how you can add code snippets, see below:
+I implemented several mechanisms which analyze passed data and
+conditionally change the look of chart bars.
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
+- This function accepts the array of expences for a certain period of time
+  and returns the **maxExpence**
 
-```css
-.proud-of-this-css {
-  color: papayawhip;
+```js
+function findMax(array) {
+  const result = array.map((item) => item.amount);
+  return Math.max(...result);
 }
 ```
 
+Usage:
+
 ```js
-const proudOfThisFunc = () => {
-  console.log("🎉");
-};
+const [maxExpence, setMaxExpence] = useState(0);
+
+useEffect(() => {
+  setMaxExpence(findMax(data));
+}, []);
 ```
 
-If you want more help with writing markdown, we'd recommend checking out
-[The Markdown Guide](https://www.markdownguide.org/) to learn more.
+```js
+<div className={styles.barChart}>
+  {data.map((item, id) => (
+    <BarChartItem
+      key={id}
+      item={item}
+      maxExpence={maxExpence}
+    />
+  ))}
+</div>
+```
 
-**Note: Delete this note and the content within this section and replace
-with your own learnings.**
+- **maxExpence** is used to conditionally render bars in the chart to
+  display actual information about expences. It touches not only the color
+  of bar, but the height. Height is proportionally counted for each bar and
+  result is passed as a property value via _inline styles_. With the help
+  of this function, all possible values are mapped from 0 to 100 and are
+  used as a percentage for bar height.
+
+```js
+function mapToRange(
+  num,
+  maxExpence,
+  minExpence = 0,
+  minRange = 0,
+  maxRange = 100
+) {
+  return (
+    ((num - minExpence) * (maxRange - minRange)) /
+      (maxExpence - minExpence) +
+    minRange
+  );
+}
+```
+
+Usage:
+
+```js
+<div
+  className={styles.barWrapper}
+  style={
+    item.amount === maxExpence
+      ? {
+          height: mapToRange(item.amount, maxExpence) + "%",
+        }
+      : { height: mapToRange(item.amount, maxExpence) + "%" }
+  }>
+  <div
+    className={styles.bar}
+    style={
+      item.amount === maxExpence
+        ? {
+            backgroundColor: "var(--cyan)",
+          }
+        : {}
+    }></div>
+  <div className={styles.barModal}>
+    <h7>${item.amount}</h7>
+  </div>
+</div>
+```
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in
-future projects. These could be concepts you're still not completely
-comfortable with or techniques you found useful that you want to refine and
-perfect.
-
-**Note: Delete this note and the content within this section and replace
-with your own plans for continued development.**
-
-### Useful resources
-
-- [Example resource 1](https://www.example.com) - This helped me for XYZ
-  reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing
-  article which helped me finally understand XYZ. I'd recommend it to
-  anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that
-helped you during the challenge. These could come in handy for anyone
-viewing your solution or for yourself when you look back on this project in
-the future.**
+I would like to add several features to my **Chart component** like
+_Changing bar direction_ and _Color palette_.
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
+- LinkedIn - [Roman Simonyan](https://www.linkedin.com/in/simonyanrr)
 - Frontend Mentor -
-  [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what
-links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this
-project. Perhaps you worked in a team or got some inspiration from someone
-else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If
-you completed this challenge by yourself, feel free to delete this section
-entirely.**
+  [@simonyanroman](https://www.frontendmentor.io/profile/simonyanroman)
+- Instagram - [@simonyanrr](https://www.instagram.com/simonyanrr)

@@ -1,0 +1,66 @@
+.barContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  width: 100%;
+  height: 100%;
+}
+
+.barWrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+}
+
+.bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  border-radius: 0.25rem;
+
+  background-color: var(--soft-red);
+
+  transition: all 0.25s ease-in-out;
+}
+
+.barModal {
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.4rem;
+  background-color: var(--dark-brown);
+
+  position: absolute;
+  z-index: 5;
+  top: -2rem;
+}
+
+@media (hover: hover) {
+  .barContainer:hover {
+    .bar {
+      opacity: 0.5;
+    }
+
+    .barModal {
+      display: flex;
+    }
+  }
+}
+
+@media (hover: none) {
+  .barModal {
+    display: flex;
+  }
+}

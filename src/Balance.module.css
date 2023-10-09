@@ -1,0 +1,20 @@
+.balanceContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.5rem;
+
+  border-radius: 1rem;
+
+  background-color: var(--soft-red);
+}
+
+.balance {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  gap: 0.5rem;
+}

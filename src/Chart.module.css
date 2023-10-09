@@ -1,0 +1,40 @@
+.chartContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 25rem;
+  padding: 1.5rem;
+
+  border-radius: 1rem;
+
+  background-color: var(--very-pale-orange);
+}
+
+.chartTitle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.barChart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  gap: 0.5rem;
+
+  padding-top: 3rem;
+}
+
+.devider {
+  height: 1px;
+  width: 100%;
+  background-color: var(--medium-brown);
+  opacity: 0.5;
+  border: 0;
+  margin: 1rem;
+}
